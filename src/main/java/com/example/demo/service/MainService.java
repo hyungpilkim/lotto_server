@@ -1,11 +1,14 @@
 package com.example.demo.service;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.repository.dsl.MainCustomRepository;
-import com.example.demo.repository.dsl.MainDto;
+import com.example.demo.dto.MainDto;
+import com.example.demo.repository.MainCustomRepository;
+
+
 
 @Service
 public class MainService {
@@ -13,7 +16,7 @@ public class MainService {
 	@Autowired
 	MainCustomRepository mainCustomRepository;
 	
-	public MainDto getLottoInfo(int drwNo) {
+	public MainDto.LottoInfo getLottoInfo(int drwNo) {
 		return mainCustomRepository.getLottoInfo(drwNo);
 	}
 }

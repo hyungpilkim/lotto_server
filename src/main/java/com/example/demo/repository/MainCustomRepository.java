@@ -1,15 +1,19 @@
-package com.example.demo.repository.dsl;
+package com.example.demo.repository;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
 import org.springframework.stereotype.Repository;
 
+import com.example.demo.dto.MainDto;
 import com.example.demo.entity.QEntityMst;
 import com.example.demo.entity.QEntityMstEtc;
 import com.example.demo.entity.QEntityMstSup;
+
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Projections;
+import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +33,7 @@ public class MainCustomRepository extends QuerydslRepositorySupport{
 	 * @param drwNo
 	 * @return
 	 */
-	public MainDto getLottoInfo(int drwNo) {
+	public MainDto.LottoInfo getLottoInfo(int drwNo) {
 		log.debug("drwNo : " + drwNo);
 		QEntityMst entityMst = QEntityMst.entityMst;
 		QEntityMstEtc entityMstEtc = QEntityMstEtc.entityMstEtc;
@@ -39,7 +43,10 @@ public class MainCustomRepository extends QuerydslRepositorySupport{
             builder.and(entityMst._order.eq(drwNo));
         }
 		
-		MainDto result = queryFactory.select(Projections.bean(MainDto.class 
+		MainDto.LottoInfo result = queryFactory.select(Projections.bean(MainDto.LottoInfo.class 
+				, ExpressionUtils.as(
+                        JPAExpressions.select(entityMst._order.max())
+                        .from(entityMst),  "lastOrder")
 				,entityMst._order
 				,entityMst.num1
 				,entityMst.num2
@@ -72,9 +79,9 @@ public class MainCustomRepository extends QuerydslRepositorySupport{
 	 * @param drwNo
 	 * @return
 	 */
-	private List<MainDtoGradeInfo> getGradeInfo(int drwNo) {
+	private List<MainDto.MainDtoGradeInfo> getGradeInfo(int drwNo) {
 		QEntityMstSup entityMstSup = QEntityMstSup.entityMstSup;
-		return queryFactory.select(Projections.bean(MainDtoGradeInfo.class 
+		return queryFactory.select(Projections.bean(MainDto.MainDtoGradeInfo.class 
 				,entityMstSup.rank
 				,entityMstSup.winPrc
 				,entityMstSup.winCnt
@@ -83,6 +90,7 @@ public class MainCustomRepository extends QuerydslRepositorySupport{
 				))
 			  .from(entityMstSup)
 			  .where(entityMstSup._order.eq(drwNo))
+			  .orderBy(entityMstSup.rank.asc())
 			  .fetch();
 	}
 }

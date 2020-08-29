@@ -5,13 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.example.demo.entity.EntityMst;
-import com.example.demo.repository.dsl.MainCustomRepository;
+import com.example.demo.repository.MainCustomRepository;
 
 @SpringBootTest
 class MainRepositoryTest {
 	
 	@Autowired 
-	com.example.demo.repository.EntityMstRepository EntityMstRepository;
+	com.example.demo.entity.repository.EntityMstRepository EntityMstRepository;
 	
 	@Autowired
 	MainCustomRepository mainCustomRepository;

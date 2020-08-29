@@ -1,4 +1,4 @@
-package com.example.demo.repository;
+package com.example.demo.entity.repository;
 
 
 import org.springframework.data.repository.CrudRepository;
