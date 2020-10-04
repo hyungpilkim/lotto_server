@@ -10,8 +10,13 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.Getter;
+import lombok.Setter;
+
 @Entity
 @Table(name="lo_mst_etc")  
+@Getter
+@Setter
 public class EntityMstEtc{
 
 	@Id
@@ -30,46 +35,4 @@ public class EntityMstEtc{
 	
 	@Column(name = "pay_limit")
 	private String payLimit;
-
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
-
-	public int get_order() {
-		return _order;
-	}
-
-	public void set_order(int _order) {
-		this._order = _order;
-	}
-
-	public String getEtc() {
-		return etc;
-	}
-
-	public void setEtc(String etc) {
-		this.etc = etc;
-	}
-
-	public BigInteger getTotalSalesPrc() {
-		return totalSalesPrc;
-	}
-
-	public void setTotalSalesPrc(BigInteger totalSalesPrc) {
-		this.totalSalesPrc = totalSalesPrc;
-	}
-
-	public String getPayLimit() {
-		return payLimit;
-	}
-
-	public void setPayLimit(String payLimit) {
-		this.payLimit = payLimit;
-	}
-	
-	
 }

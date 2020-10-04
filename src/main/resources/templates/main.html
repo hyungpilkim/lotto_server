@@ -22,7 +22,7 @@
 				<span class="btn-group"><h4 class="unit label">회차 바로가기</h4></span>
 				<select name="order" class="mdb-select md-form">
 				  <th:block th:each="num: ${#numbers.sequence(lotto.lastOrder, 1, -1)}">
-				  	<option th:value="${num}" th:text="${num}"/>
+				  	<option th:value="${num}" th:text="${num}" th:selected="${num==lotto._order}"/>
 				  </th:block>
 				</select>
 				
