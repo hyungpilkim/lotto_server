@@ -16,13 +16,19 @@ public class MainController {
 	@Autowired
 	private MainService mainService;
 	
-	@GetMapping("/index")
-    public String index(@RequestParam(value="order", required = false, defaultValue = "0") int order
+	@GetMapping("/result")
+    public String result(@RequestParam(value="order", required = false, defaultValue = "0") int order
     		, Model model) {
         
 		log.debug("order : " + order);
         model.addAttribute("lotto", mainService.getLottoInfo(order));
         
-        return "main";
+        return "result";
+    }
+	
+	@GetMapping("/generator")
+    public String generator(@RequestParam(value="order", required = false, defaultValue = "0") int order
+    		, Model model) {
+        return "generator";
     }
 }

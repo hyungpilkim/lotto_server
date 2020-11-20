@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+
+  lottodb:
+    build: ./docker/mariadb/.
+    container_name: containerdb
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_DATABASE: lotto
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_ROOT_HOST: '%'
+      
+  lottoweb:
+    build: .
+    container_name: containerweb
+    ports:
+      - 8080:8080
+    depends_on:
+      - lottodb
+  
+  lottonginx:
+    image: nginx
+    container_name: containernginx
+    ports:
+      - 80:80
+    volumes:
+      - ./docker/nginx/nginx_conf:/etc/nginx/nginx.conf
+    depends_on:
+      - lottoweb

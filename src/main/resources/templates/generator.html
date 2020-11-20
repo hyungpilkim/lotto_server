@@ -1,0 +1,200 @@
+<html>
+<head>
+<script type="text/javascript" src="/js/jquery.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/popper.min.js" charset="utf-8"></script>
+<script type="text/javascript" src="/js/ball.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="/css/ball.css">
+<script>
+	var canvas;
+	var balls = [];
+	var ctx;
+	var play = false;
+	var fixNums = [];
+	var reqAnimFrameCode;
+	$(document).ready(function(){
+		canvas = document.getElementById('canvas');
+		balls = [];
+		ctx = canvas.getContext('2d');
+		play = false;
+		fixNums = [];
+		
+		$("#sideopen").click(function(){
+			openNav();
+		});
+		
+		$("#sideclose").click(function(){
+			closeNav();
+		});
+		
+		$("#btnStart").click(function(){
+			lottoPlay();
+		});
+		
+		$("#btnGenerator").click(function(){
+			 if (!play || fixNums.length >= 6)
+		            return;
+
+	        const includeNums = [];
+	        addValue(includeNums, document.getElementById("includeNum1").value);
+	        addValue(includeNums, document.getElementById("includeNum2").value);
+	        addValue(includeNums, document.getElementById("includeNum3").value);
+	        addValue(includeNums, document.getElementById("includeNum4").value);
+	        addValue(includeNums, document.getElementById("includeNum5").value);
+	        addValue(includeNums, document.getElementById("includeNum6").value);
+	        console.log(includeNums)
+
+	        const excludeNums = [];
+	        addValue(excludeNums, document.getElementById("excludeNum1").value);
+	        addValue(excludeNums, document.getElementById("excludeNum2").value);
+	        addValue(excludeNums, document.getElementById("excludeNum3").value);
+	        addValue(excludeNums, document.getElementById("excludeNum4").value);
+	        addValue(excludeNums, document.getElementById("excludeNum5").value);
+	        addValue(excludeNums, document.getElementById("excludeNum6").value);
+	        console.log(excludeNums);
+
+	        fixNums = getGenerator(includeNums, excludeNums);
+	        play = false;
+	        buttonStatus(false)
+		});
+	});
+	    
+	function init() {
+        balls = [];
+        play = true;
+        fixNums = [];
+        window.cancelAnimationFrame(reqAnimFrameCode)
+        for (let i = 1; i <= 45; i++) {
+            balls.push(new Ball("canvas", ctx, i));
+        }
+    }
+   
+    function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        balls.forEach(ball => ball.update());
+        balls.forEach(ball => ball.draw());
+
+        if (fixNums.length >=6) {
+            balls.forEach(ball => ball.fixnums(fixNums));
+        }
+    }
+
+    function update () {
+        reqAnimFrameCode = window.requestAnimationFrame(update)
+        draw()
+    }
+
+    function getGenerator(includeArr, excludeArr) {
+        var lottoNums = [];
+        if (includeArr.length > 6)
+            return lottoNums
+
+        //포함되어야할 숫자 삽입
+        for (var i = 0; i <  includeArr.length; i++) {
+            lottoNums[i] = includeArr[i]
+        }
+
+        var fixedIdx = includeArr.length
+        while (fixedIdx < 6) {
+            lottoNums[fixedIdx] = getRandomIntInclusive(1,45)
+            for (var i = 0; i <  fixedIdx; i++) {
+                //중복인지
+                if (lottoNums[fixedIdx] == lottoNums[i]) {
+                    fixedIdx--
+                    break
+                }
+
+                //빼야할 숫자인지
+                for (var j = 0; j <  excludeArr.length; j++ ) {
+                    if (lottoNums[fixedIdx] == excludeArr[j]) {
+                        fixedIdx--
+                        break
+                    }
+                }
+            }
+            fixedIdx++
+        }
+        lottoNums.sort(function(a, b){return a-b})
+        return lottoNums
+    }
+
+    function getRandomIntInclusive(min, max) {
+        min = Math.ceil(min);
+        max = Math.floor(max);
+        return Math.floor(Math.random() * (max - min + 1)) + min; //최댓값도 포함, 최솟값도 포함
+    }
+    function addValue(array, value) {
+        if (value != "" && value.length != 0) {
+            value = Number(value)
+            if(!array.includes(value)) {
+                array.push(value);
+            }
+        }
+    }
+    function lottoPlay() {
+        if (play)
+            return;
+
+        init();
+        update();
+        buttonStatus(true)
+    }
+    function buttonStatus(isPlay){
+        if (isPlay) {
+            document.getElementById('btnStart').classList.add("disabled");
+            document.getElementById('btnGenerator').classList.remove("disabled");
+        } else {
+            document.getElementById('btnStart').classList.remove("disabled");
+            document.getElementById('btnGenerator').classList.add("disabled");
+        }
+    }
+    
+	function openNav() {
+	  document.getElementById("mySidenav").style.width = "300px";
+	}
+	
+	function closeNav() {
+	  document.getElementById("mySidenav").style.width = "0";
+	}
+	
+</script>
+</head>
+<body>
+ 	<div id="mySidenav" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" id="sideclose">&times;</a>
+	  <a href="/generator">번호 생성</a>
+	  <a href="/result">회차별 당첨결과 조회</a>
+	</div>
+	
+	<span id="sideopen">&#9776; open</span>
+
+	<div id="lottoGenerator" class="container mt-5" >    
+		<div class="w-50 mx-auto d-flex flex-column justify-content-center " style="width:550px;">
+			<h1 class=" header-title align-self-center">로또 번호 생성</h1>
+		 	<canvas id="canvas" width="500" height="500"></canvas>
+		    <div class="mt-10  align-self-center">포함숫자(include num)</div>
+		    <div class="form-group form-group-sm align-self-center">
+	    	 	<input type="number" id="includeNum1" name="includeNum" min="1" max="45">
+			    <input type="number" id="includeNum2" name="includeNum" min="1" max="45">
+			    <input type="number" id="includeNum3" name="includeNum" min="1" max="45">
+			    <input type="number" id="includeNum4" name="includeNum" min="1" max="45">
+			    <input type="number" id="includeNum5" name="includeNum" min="1" max="45">
+			    <input type="number" id="includeNum6" name="includeNum" min="1" max="45">
+		    </div>
+		   
+		    <div class="mt-10 align-self-center" >제외숫자(exclude num)</div>
+		    <div class="form-group form-group-sm align-self-center">
+		    	<input type="number" id="excludeNum1" name="excludeNum" min="1" max="45">
+			    <input type="number" id="excludeNum2" name="excludeNum" min="1" max="45">
+			    <input type="number" id="excludeNum3" name="excludeNum" min="1" max="45">
+			    <input type="number" id="excludeNum4" name="excludeNum" min="1" max="45">
+			    <input type="number" id="excludeNum5" name="excludeNum" min="1" max="45">
+			    <input type="number" id="excludeNum6" name="excludeNum" min="1" max="45">
+		    </div>
+		    
+		    <div class="button mt-10 align-self-center" id="btnStart">시작 (Start)</div>
+		    <div class="button mt-10 align-self-center disabled" id="btnGenerator">번호생성 (Lotto Number Generator)</div>
+		</div>
+	 </div>
+</body>
+</html>
