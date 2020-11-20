@@ -4,7 +4,6 @@ COPY gradle gradle
 COPY build.gradle build.gradle
 COPY settings.gradle settings.gradle
 COPY src src
-COPY WebContent WebContent
 RUN chmod +x ./gradlew
 RUN ./gradlew clean
 RUN ./gradlew bootWar
