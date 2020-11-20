@@ -5,7 +5,6 @@ COPY build.gradle build.gradle
 COPY settings.gradle settings.gradle
 COPY src src
 RUN chmod +x ./gradlew
-RUN ./gradlew clean
 RUN ./gradlew bootWar
 
 FROM openjdk:8-jre-slim
