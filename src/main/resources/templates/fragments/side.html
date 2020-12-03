@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:fragment="fragment_side">
+<div class="android-drawer mdl-layout__drawer">
+       <span class="mdl-layout-title">
+         <div style="color:black">LottoIs</div>
+       </span>
+       <nav class="mdl-navigation">
+         <a class="mdl-navigation__link" href="">번호 생성</a>
+         <a class="mdl-navigation__link" href="">당첨 조회</a>
+         <a class="mdl-navigation__link" href="">통계 분석</a>
+       </nav>
+     </div>
+      
+     <!-- <div id="mySidenav" class="sidenav">
+	  <a href="javascript:void(0)" class="closebtn" id="sideclose">&times;</a>
+ 	  <a href="/result">회차별 당첨결과 조회</a>
+	  <a href="/generator">번호 생성</a>
+	</div> -->
+	
+	<span id="sideopen">&#9776; open</span>
+	
+	<script>
+		$(document).ready(function(){
+			$("#sideopen").click(function(){
+				openNav();
+			});
+			
+			$("#sideclose").click(function(){
+				closeNav();
+			});
+		});
+		function openNav() {
+		  document.getElementById("mySidenav").style.width = "300px";
+		}
+		
+		function closeNav() {
+		  document.getElementById("mySidenav").style.width = "0";
+		}
+		
+	</script>
+</th:block>
+</html>

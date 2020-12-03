@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html 
+	lagn="ko"
+    xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <title layout:title-pattern="$LAYOUT_TITLE : $CONTENT_TITLE">LottoIs</title>
+</head>
+<body>
+	<head th:replace="fragments/config :: fragment_config"></head>
+	<header th:replace="fragments/header :: fragment_header"></header>
+	<div th:replace="fragments/side :: fragment_side"></div>
+	<div layout:fragment="content"></div>
+	<footer th:replace="fragments/footer :: fragment_footer"></footer>
+</body>
+</html>
