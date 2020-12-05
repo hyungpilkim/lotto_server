@@ -1,6 +1,6 @@
 FROM mariadb:latest as builder
 
-COPY ./backup/*.sql /docker-entrypoint-initdb.d/
+COPY ./data/backup/*.sql /docker-entrypoint-initdb.d/
 
 VOLUME ["./log",  "/var/log/maria"]
 VOLUME ["./data",  "/var/lib/mysql"]
