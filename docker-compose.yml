@@ -12,6 +12,8 @@ services:
       MYSQL_DATABASE: lotto
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
+    networks:
+      - lotto
       
   lottoweb:
     image: ddle/lottoweb:0.0.3
@@ -20,6 +22,8 @@ services:
       - 8080:8080
     depends_on:
       - lottodb
+    networks:
+      - lotto
   
   lottonginx:
     image: nginx
@@ -30,3 +34,24 @@ services:
       - ./docker/nginx/nginx_conf:/etc/nginx/nginx.conf
     depends_on:
       - lottoweb
+    networks:
+      - lotto
+  
+  lottoserver:
+    image: ddle/lottopush:server0.0.2
+    container_name: pushserver
+    ports:
+      - 3002:3002
+    networks:
+      - lotto
+    
+  lottoreact:
+    image: ddle/lottopush:front0.0.1
+    container_name: pushfront
+    ports:
+      - 3000:3000
+    networks:
+      - lotto
+      
+networks:
+    lotto:
