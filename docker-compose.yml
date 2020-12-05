@@ -50,6 +50,8 @@ services:
   lottoreact:
     image: ddle/lottopush:front0.0.1
     container_name: pushfront
+    depends_on:
+      - lottoserver
     ports:
       - 3000:3000
     networks:
