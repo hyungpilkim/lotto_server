@@ -40,6 +40,8 @@ services:
   lottoserver:
     image: ddle/lottopush:server0.0.2
     container_name: pushserver
+    depends_on:
+      - lottodb
     ports:
       - 3002:3002
     networks:
