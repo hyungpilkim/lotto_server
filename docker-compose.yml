@@ -14,7 +14,7 @@ services:
       MYSQL_ROOT_HOST: '%'
       
   lottoweb:
-    image: ddle/lottoweb:0.0.2
+    image: ddle/lottoweb:0.0.3
     container_name: containerweb
     ports:
       - 8080:8080
