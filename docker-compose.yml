@@ -1,10 +1,10 @@
-version: '3'
+version: '3.8'
 
 services:
 
   lottodb:
     build: ./docker/mariadb/.
-    container_name: containerdb
+    container_name: db
     restart: always
     ports:
       - 3306:3306
@@ -13,18 +13,17 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
 
-      
   lottoweb:
-    image: ddle/lottoweb:0.0.3
-    container_name: containerweb
+    image: ddle/lottoweb:latest
+    container_name: web
     ports:
       - 8080:8080
     depends_on:
       - lottodb
-  
+
   lottonginx:
     image: nginx
-    container_name: containernginx
+    container_name: nginx
     ports:
       - 80:80
     volumes:
@@ -32,19 +31,8 @@ services:
     depends_on:
       - lottoweb
 
-  lottoserver:
-    image: ddle/lottopush:server0.0.2
-    container_name: pushserver
-    depends_on:
-      - lottodb
-    ports:
-      - 3002:3002
+networks:
+  default:
+    external:
+      name: docker_net
 
-    
-  lottoreact:
-    image: ddle/lottopush:front0.0.1
-    container_name: pushfront
-    depends_on:
-      - lottoserver
-    ports:
-      - 3000:3000
