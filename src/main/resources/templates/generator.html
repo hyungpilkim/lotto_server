@@ -1,10 +1,37 @@
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <script type="text/javascript" src="/js/jquery.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/popper.min.js" charset="utf-8"></script>
 <script type="text/javascript" src="/js/ball.js" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="/css/bootstrap.min.css">
-<link rel="stylesheet" type="text/css" href="/css/ball.css">
+<link rel="stylesheet" type="text/css" href="/css/lotto.css">
+
+<!-- adsense --> 
+<script data-ad-client="ca-pub-6956144461598099" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+ 
+<!-- The core Firebase JS SDK is always required and must be listed first -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use https://firebase.google.com/docs/web/setup#available-libraries -->
+<script src="https://www.gstatic.com/firebasejs/8.1.1/firebase-analytics.js"></script>
+
+<script>
+var firebaseConfig = {
+  apiKey: "AIzaSyAAUrapo6wwql44R10K_hcJn_Yr1Ul_nyQ",
+  authDomain: "lottois.firebaseapp.com",
+  databaseURL: "https://lottois.firebaseio.com",
+  projectId: "lottois",
+  storageBucket: "lottois.appspot.com",
+  messagingSenderId: "379480373953",
+  appId: "1:379480373953:web:e8a947164d03eb027bb240",
+  measurementId: "G-HJH016B2QS"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+firebase.analytics();
+</script>
+
 <script>
 	var canvas;
 	var balls = [];
@@ -18,14 +45,6 @@
 		ctx = canvas.getContext('2d');
 		play = false;
 		fixNums = [];
-		
-		$("#sideopen").click(function(){
-			openNav();
-		});
-		
-		$("#sideclose").click(function(){
-			closeNav();
-		});
 		
 		$("#btnStart").click(function(){
 			lottoPlay();
@@ -148,54 +167,45 @@
             document.getElementById('btnGenerator').classList.add("disabled");
         }
     }
-    
-	function openNav() {
-	  document.getElementById("mySidenav").style.width = "300px";
-	}
-	
-	function closeNav() {
-	  document.getElementById("mySidenav").style.width = "0";
-	}
 	
 </script>
 </head>
 <body>
- 	<div id="mySidenav" class="sidenav">
-	  <a href="javascript:void(0)" class="closebtn" id="sideclose">&times;</a>
-	  <a href="/generator">번호 생성</a>
+ 	<div class="topbar">
 	  <a href="/result">회차별 당첨결과 조회</a>
+	  <a class="on" href="/generator">번호 생성</a>
 	</div>
 	
-	<span id="sideopen">&#9776; open</span>
-
-	<div id="lottoGenerator" class="container mt-5" >    
-		<div class="w-50 mx-auto d-flex flex-column justify-content-center " style="width:550px;">
-			<h1 class=" header-title align-self-center">로또 번호 생성</h1>
-			<h2 class=" header-title align-self-center">(시작 클릭 -> 번호생성 클릭)</h1>
-		 	<canvas id="canvas" width="500" height="500"></canvas>
-		    <div class="mt-10  align-self-center">포함숫자(include num)</div>
-		    <div class="form-group form-group-sm align-self-center">
-	    	 	<input type="number" id="includeNum1" name="includeNum" min="1" max="45">
-			    <input type="number" id="includeNum2" name="includeNum" min="1" max="45">
-			    <input type="number" id="includeNum3" name="includeNum" min="1" max="45">
-			    <input type="number" id="includeNum4" name="includeNum" min="1" max="45">
-			    <input type="number" id="includeNum5" name="includeNum" min="1" max="45">
-			    <input type="number" id="includeNum6" name="includeNum" min="1" max="45">
-		    </div>
-		   
-		    <div class="mt-10 align-self-center" >제외숫자(exclude num)</div>
-		    <div class="form-group form-group-sm align-self-center">
-		    	<input type="number" id="excludeNum1" name="excludeNum" min="1" max="45">
-			    <input type="number" id="excludeNum2" name="excludeNum" min="1" max="45">
-			    <input type="number" id="excludeNum3" name="excludeNum" min="1" max="45">
-			    <input type="number" id="excludeNum4" name="excludeNum" min="1" max="45">
-			    <input type="number" id="excludeNum5" name="excludeNum" min="1" max="45">
-			    <input type="number" id="excludeNum6" name="excludeNum" min="1" max="45">
-		    </div>
-		    
-		    <div class="button mt-10 align-self-center" id="btnStart">시작 (Start)</div>
-		    <div class="button mt-10 align-self-center disabled" id="btnGenerator">번호생성 (Lotto Number Generator)</div>
-		</div>
-	 </div>
+	<div class="main ">
+		<div id="lottoGenerator" class="container mt-5" >    
+			<div class="w-50 mx-auto d-flex flex-column justify-content-center " style="width:550px;">
+				<h1 class=" header-title align-self-center">로또 번호 생성</h1>
+				<h2 class=" header-title align-self-center">(시작 클릭 -> 번호생성 클릭)</h1>
+			 	<canvas id="canvas" width="500" height="500"></canvas>
+			    <div class="mt-10  align-self-center">포함숫자(include num)</div>
+			    <div class="form-group form-group-sm align-self-center">
+		    	 	<input type="number" id="includeNum1" name="includeNum" min="1" max="45">
+				    <input type="number" id="includeNum2" name="includeNum" min="1" max="45">
+				    <input type="number" id="includeNum3" name="includeNum" min="1" max="45">
+				    <input type="number" id="includeNum4" name="includeNum" min="1" max="45">
+				    <input type="number" id="includeNum5" name="includeNum" min="1" max="45">
+				    <input type="number" id="includeNum6" name="includeNum" min="1" max="45">
+			    </div>
+			   
+			    <div class="mt-10 align-self-center" >제외숫자(exclude num)</div>
+			    <div class="form-group form-group-sm align-self-center">
+			    	<input type="number" id="excludeNum1" name="excludeNum" min="1" max="45">
+				    <input type="number" id="excludeNum2" name="excludeNum" min="1" max="45">
+				    <input type="number" id="excludeNum3" name="excludeNum" min="1" max="45">
+				    <input type="number" id="excludeNum4" name="excludeNum" min="1" max="45">
+				    <input type="number" id="excludeNum5" name="excludeNum" min="1" max="45">
+				    <input type="number" id="excludeNum6" name="excludeNum" min="1" max="45">
+			    </div>
+			    
+			    <div class="button mt-10 align-self-center" id="btnStart">시작 (Start)</div>
+			    <div class="button mt-10 align-self-center disabled" id="btnGenerator">번호생성 (Lotto Number Generator)</div>
+			</div>
+		 </div>
+	</div>
 </body>
 </html>

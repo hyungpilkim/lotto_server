@@ -5,49 +5,41 @@
 }
 body {
     font-family: 'Sunflower';
+    margin:0;
 }
 
-.sidenav {
-  height: 100%;
-  width: 0;
+.topbar {
+  overflow: hidden;
+  background-color: #333;
   position: fixed;
-  z-index: 1;
   top: 0;
-  left: 0;
-  background-color: #111;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
+  width: 100%;
 }
 
-.sidenav a {
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-  font-size: 25px;
-  color: #818181;
+.topbar a {
+  float: left;
   display: block;
-  transition: 0.3s;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
 
-.sidenav a:hover {
-  color: #f1f1f1;
+.topbar a:hover {
+  background: #ddd;
+  color: black;
 }
 
-.sidenav .closebtn {
-  position: absolute;
-  top: 0;
-  right: 25px;
-  font-size: 36px;
-  margin-left: 50px;
+.topbar a.on { 
+	background: #ddd;
+  	color: black;
 }
 
-#sideopen {
-	font-size:30px;margin-left: 15px; margin-top: 30px;cursor:pointer
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+.main {
+  padding: 16px;
+  margin-top: 30px;
+  height: 1500px; /* Used in this example to enable scrolling */
 }
 
 
@@ -62,3 +54,39 @@ body {
 .ball_645.ball3 {background:#ff7272; text-shadow: 0px 0px 3px rgba(64, 0, 0, .8)}
 .ball_645.ball4 {background:#aaa; text-shadow: 0px 0px 3px rgba(61, 61, 61, .8)}
 .ball_645.ball5 {background:#b0d840; text-shadow: 0px 0px 3px rgba(41, 56, 0, .8)}
+
+#lottoGenerator .button {
+    display:inline-block;
+    color:#444;
+    border:1px solid #CCC;
+    background:#DDD;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor:pointer;
+    vertical-align:middle;
+    max-width: 300px;
+    margin-top:10pt;
+    padding: 5px;
+    text-align: center;
+}
+#lottoGenerator .button:active {
+    color:red;
+    margin-top:10pt;
+    padding: 5px;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.6);
+}
+#lottoGenerator .button.disabled,
+#lottoGenerator .button[disabled]{
+    display:inline-block;
+    box-shadow: 0 0 5px -1px rgba(0,0,0,0.2);
+    cursor:pointer;
+    vertical-align:middle;
+    max-width: 300px;
+    padding: 5px;
+    margin-top: 10pt;
+    text-align: center;
+    border: 1px solid #999999;
+    background-color: #cccccc;
+    color: #666666;
+}
+
+#lottoGenerator canvas { border: 1px solid black; margin: 10pt; }
