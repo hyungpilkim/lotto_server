@@ -30,5 +30,5 @@ http {
     
     sendfile        on;
     keepalive_timeout  65;
-    include /etc/nginx/conf/*.conf;
+    include /etc/nginx/*.conf;
 }
