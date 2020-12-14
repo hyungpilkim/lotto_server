@@ -26,6 +26,7 @@ services:
     container_name: nginx
     ports:
       - 80:80
+      - 443:443
     volumes:
       - ./docker/nginx/conf/nginx_conf:/etc/nginx/nginx.conf
       - ./docker/nginx/cert/*:/etc/nginx/cert/*
