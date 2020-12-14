@@ -27,7 +27,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./docker/nginx:/etc/nginx
+      - ./docker/nginx/:/etc/nginx/
     depends_on:
       - lottoweb
 
