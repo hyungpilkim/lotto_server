@@ -27,9 +27,7 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./docker/nginx/nginx_conf:/etc/nginx/nginx.conf
-      - ./docker/nginx/privkey.pem:/etc/nginx/privkey.pem
-      - ./docker/nginx/fulllchain.pem:/etc/nginx/fulllchain.pem
+      - ./docker/nginx:/etc/nginx
     depends_on:
       - lottoweb
 

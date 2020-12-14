@@ -30,11 +30,11 @@ http {
     server {
 	    listen 443 ssl;
 	    ssl on;
-	    ssl_certificate     /etc/nginx/fullchain.pem;
-	    ssl_certificate_key /etc/nginx/privkey.pem;
+	    ssl_certificate     /etc/nginx/cert/fullchain.pem;
+	    ssl_certificate_key /etc/nginx/cert/privkey.pem;
 	}
 
     sendfile        on;
     keepalive_timeout  65;
-    include /etc/nginx/conf.d/*.conf;
+    include /etc/nginx/conf/conf.d/*.conf;
 }
