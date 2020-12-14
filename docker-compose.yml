@@ -29,7 +29,7 @@ services:
       - 443:443
     volumes:
       - ./docker/nginx/conf/nginx_conf:/etc/nginx/nginx.conf
-      - ./docker/nginx/cert/*:/etc/nginx/cert/*
+      - ./docker/nginx/cert:/etc/nginx/cert
     depends_on:
       - lottoweb
 
