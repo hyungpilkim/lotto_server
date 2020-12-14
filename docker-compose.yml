@@ -27,8 +27,8 @@ services:
     ports:
       - 80:80
     volumes:
-      - ./docker/nginx/conf:/etc/nginx/conf
-      - ./docker/nginx/cert:/etc/nginx/cert
+      - ./docker/nginx/conf/nginx_conf:/etc/nginx/conf/nginx.conf
+      - ./docker/nginx/cert/*:/etc/nginx/cert/*
     depends_on:
       - lottoweb
 
