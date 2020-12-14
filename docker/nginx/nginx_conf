@@ -27,6 +27,12 @@ http {
             proxy_set_header   X-Forwarded-For $proxy_add_x_forwarded_for;
         }
     }
+    server {
+	    listen 443 ssl;
+	    ssl on;
+	    ssl_certificate     /etc/nginx/fullchain.pem;
+	    ssl_certificate_key /etc/nginx/privkey.pem;
+	}
 
     sendfile        on;
     keepalive_timeout  65;
