@@ -196,4 +196,35 @@ public class MainDto {
 			this.winRule = winRule;
 		}
 	}
+	
+	public static class UserInfo {
+		private String deviceToken;
+		private String deviceType;
+		private String agreeYn;
+		private String regDt;
+		public String getDeviceToken() {
+			return deviceToken;
+		}
+		public void setDeviceToken(String deviceToken) {
+			this.deviceToken = deviceToken;
+		}
+		public String getDeviceType() {
+			return deviceType;
+		}
+		public void setDeviceType(String deviceType) {
+			this.deviceType = deviceType;
+		}
+		public String getAgreeYn() {
+			return agreeYn;
+		}
+		public void setAgreeYn(String agreeYn) {
+			this.agreeYn = agreeYn;
+		}
+		public String getRegDt() {
+			return regDt;
+		}
+		public void setRegDt(String regDt) {
+			this.regDt = regDt;
+		}
+	}
 }
